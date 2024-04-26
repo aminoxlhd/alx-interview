@@ -17,10 +17,12 @@ def pascal_triangle(n):
         row.append(1)
 
         if index > 1:
-            for index2 in range(1, index):
+            index2 = 1
+            while index2 < index:
                 prev_row = triangle[index - 1]
                 element = prev_row[index2 - 1] + prev_row[index2]
                 row.append(element)
+                index2 = index2 + 1
 
         row.append(1)
         triangle.append(row)
