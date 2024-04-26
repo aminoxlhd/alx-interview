@@ -1,5 +1,4 @@
 #!/usr/bin/python
-"""Triangle Triangle"""
 
 
 def pascal_triangle(n):
