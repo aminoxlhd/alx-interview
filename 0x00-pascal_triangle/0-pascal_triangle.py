@@ -3,9 +3,6 @@ def pascal_triangle(n):
     """
     A function that returns a list of lists of integers representing
         the Pascal s triangle of n
-    Args:
-        @n: The number of rows in the Pascal's triangle.
-    @Returns:A list of lists representing the Pascal's triangle.
     """
     triangle = []
 
