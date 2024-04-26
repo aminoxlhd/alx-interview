@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """Triangle Triangle"""
 
-3
+
 def pascal_triangle(n):
 
     """
