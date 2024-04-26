@@ -1,6 +1,4 @@
 #!/usr/bin/python
-
-
 def pascal_triangle(n):
     """
     A function that returns a list of lists of integers representing
