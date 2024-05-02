@@ -13,6 +13,9 @@ def canUnlockAll(boxes):
     Returns:
           True if all boxes can be opened, False otherwise.
     """
+    if not boxes:
+        return False
+
     tested = set()
     queue = [0]
     tested.add(0)
