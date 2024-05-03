@@ -11,7 +11,7 @@ def canUnlockAll(boxes):
                a specific box contains.
 
     Returns:
-          True if all boxes can be opened, False otherwise.
+          True if all boxes can be  opened, False otherwise.
     """
     if not boxes:
         return False
