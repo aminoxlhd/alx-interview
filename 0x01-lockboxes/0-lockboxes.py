@@ -22,7 +22,7 @@ def canUnlockAll(boxes):
 
     while queue:
         box_number = queue.pop(0)
-        for key in boxes[box_number]:
+        for key in boxes[box_number] or []:
             if key not in tested:
                 tested.add(key)
                 queue.append(key)
