@@ -26,6 +26,6 @@ def canUnlockAll(boxes):
             for key in boxes[box_number]:
                 if key not in tested:
                     tested.add(key)
-                    queue.append(key
+                    queue.append(key)
 
     return len(tested) == len(boxes)
