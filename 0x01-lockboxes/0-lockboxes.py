@@ -22,10 +22,9 @@ def canUnlockAll(boxes):
 
     while queue:
         box_number = queue.pop(0)
-        if box_number in boxes:
-            for key in boxes[box_number]:
-                if key not in tested:
-                    tested.add(key)
-                    queue.append(key)
+        for key in boxes[box_number]:
+            if key < len(boxes) and key not in tested:
+                tested.add(key)
+                queue.append(key)
 
     return len(tested) == len(boxes)
