@@ -14,7 +14,6 @@ def minOperations(n):
     if n <= 1:
         return n
 
-    current_char = 'H'
     current_string = 'H'
     num_operations = 0
     while len(current_string) < n:
