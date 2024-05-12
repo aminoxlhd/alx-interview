@@ -22,5 +22,4 @@ def minOperations(n):
             num_operations = num_operations + string_length
         string_length = string_length + 1
 
-    
     return num_operations
