@@ -12,25 +12,15 @@ def minOperations(n):
         The minimum number of operations needed, or 0 if impossible.
     """
     if n <= 1:
-        return n
+        return 0
 
-    current_string = 'H'
     num_operations = 0
-    while len(current_string) < n:
-        if n % len(current_string) == 0:
-            num_operations = num_operations + 2
-            current_string += current_string
-        else:
-            if len(current_string) * 2 <= n:
-                num_operations = num_operations + 2
-                current_string += current_string
-            else:
-                copy_length = min(n - len(current_string), len(current_string))
-                num_operations = num_operations + 1
-                current_string += current_string[:copy_length]
+    string_length = 2
+    while n > 1:
+        while n % string_length == 0:
+            n //= string_length
+            num_operations = num_operations + string_length
+        string_length = string_length + 1
 
-    if len(current_string) + 1 == n:
-        num_operations = num_operations + 1
-        current_string += current_char
-
+    
     return num_operations
