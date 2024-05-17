@@ -2,7 +2,7 @@
 """ A script that reads stdin line by line and computes metrics """
 
 import sys
-import re
+import signal
 
 total_file_size = 0
 status_codes = {"200": 0,
