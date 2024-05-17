@@ -4,49 +4,59 @@
 import sys
 import re
 
+total_file_size = 0
+status_codes = {"200": 0,
+                "301": 0,
+                "400": 0,
+                "401": 0,
+                "403": 0,
+                "404": 0,
+                "405": 0,
+                "500": 0}
+line_count = 0
 
-def print_log(log_to_print: dict) -> None:
-    """ print_log function """
-    print("File size: {}".format(log_to_print["size"]))
-    for status_code in log_to_print["code_count"]:
-        if log_to_print["code_count"][status_code] != 0:
-            print("{}: {}".format(
-                status_code, log_to_print["code_count"][status_code]))
+
+def print_stats():
+    """ print_stats function """
+    print("File size: {}".format(total_file_size))
+    for code in sorted(status_codes.keys()):
+        if status_codes[code] > 0:
+            print("{}: {}".format(code, status_codes[code]))
 
 
-if __name__ == "__main__":
-    REGEX = r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[\d{4}-\d{2}-\d{2} \
-            d{2}:\d{2}:\d{2}.\d+\] "GET /projects/260 HTTP/1.1" (.{3}) (\d+)'
-    compiled = re.compile(REGEX)
+def signal_handler(sig, frame):
+    """ signal_handler function """
+    print_stats()
+    sys.exit(0)
 
-    lines = 0
-    log = {}
-    status_codes = {"200": 0,
-                    "301": 0,
-                    "400": 0,
-                    "401": 0,
-                    "403": 0,
-                    "404": 0,
-                    "405": 0,
-                    "500": 0}
-    log["code_count"] = dict.fromkeys(status_codes, 0)
-    log["size"] = 0
 
-    try:
-        for line in sys.stdin:
-            line = line.strip()
-            full_match = compiled.fullmatch(line)
-            if (full_match is not None):
-                code = full_match.group(1)
-                size = int(full_match.group(2))
+signal.signal(signal.SIGINT, signal_handler)
 
-                if (code.isnumeric()):
-                    log["code_count"][int(code)] = log["code_count"][int(
-                        code)] + 1
 
-                log["size"] = log["size"] + size
-                lines = lines + 1
-                if (lines % 10 == 0):
-                    print_log(log)
-    finally:
-        print_log(log)
+try:
+    for line in sys.stdin:
+        parts = line.split()
+        if len(parts) < 7:
+            continue
+
+        try:
+            file_size = int(parts[-1])
+            status_code = parts[-2]
+        except ValueError:
+            continue
+
+        total_file_size += file_size
+
+        if status_code in status_codes:
+            status_codes[status_code] += 1
+
+        line_count += 1
+
+        if line_count == 10:
+            print_stats()
+            line_count = 0
+
+except Exception as e:
+    sys.stderr.write("Error: {}\n".format(e))
+finally:
+    print_stats()
