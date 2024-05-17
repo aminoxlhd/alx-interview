@@ -5,12 +5,13 @@ import sys
 import re
 
 
-def print_log(log_to_print : dict) -> None:
+def print_log(log_to_print: dict) -> None:
     """ print_log function """
     print("File size: {}".format(log_to_print["size"]))
     for status_code in log_to_print["code_count"]:
         if log_to_print["code_count"][status_code] != 0:
-            print("{}: {}".format(status_code, log_to_print["code_count"][status_code]))
+            print("{}: {}".format(
+                status_code, log_to_print["code_count"][status_code]))
 
 
 if __name__ == "__main__":
@@ -20,8 +21,14 @@ if __name__ == "__main__":
 
     lines = 0
     log = {}
-    status_codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 
-            0, 404: 0, 405: 0, 500: 0}
+    status_codes = {"200": 0,
+                    "301": 0,
+                    "400": 0,
+                    "401": 0,
+                    "403": 0,
+                    "404": 0,
+                    "405": 0,
+                    "500": 0}
     log["code_count"] = dict.fromkeys(status_codes, 0)
     log["size"] = 0
 
@@ -34,7 +41,8 @@ if __name__ == "__main__":
                 size = int(full_match.group(2))
 
                 if (code.isnumeric()):
-                    log["code_count"][int(code)] = log["code_count"][int(code)] + 1
+                    log["code_count"][int(code)] = log["code_count"][int(
+                        code)] + 1
 
                 log["size"] = log["size"] + size
                 lines = lines + 1
