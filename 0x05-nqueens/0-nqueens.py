@@ -5,16 +5,16 @@ import sys
 
 def is_safe(row, col, queens):
     """
-          A fnction that check in the place is safe.
+      A fnction that check in the place is safe.
 
-          Args:
-              row: The row to place the queen.
-              col: The column to place the queen.
-              queens: A list of existing queen positions (tuples of row, col).
+      Args:
+          row: The row to place the queen.
+          col: The column to place the queen.
+          queens: A list of existing queen positions (tuples of row, col).
 
-          Returns:
-              True if the position is safe, False otherwise.
-          """
+      Returns:
+          True if the position is safe, False otherwise.
+      """
     for r, c in queens:
         if r == row or c == col:
             return False
@@ -30,32 +30,30 @@ def is_safe(row, col, queens):
 
 def solve_n_queens(n, queens):
     """
-    A function that solves the N-Queens problem using backtracking.
+      A function that solves the N-Queens problem using backtracking.
 
-    Args:
-        n: The number of queens.
-        queens: A list of existing queen positions (tuples of row, col).
+      Args:
+          n: The number of queens.
+          queens: A list of existing queen positions (tuples of row, col).
 
-    Returns:
-        None
-    """
+      Returns:
+          None
+      """
+    if len(queens) == n:
+        print(queens)
+        return
 
-
-if len(queens) == n:
-    print(queens)
-    return
-
-for col in range(n):
-    if is_safe(len(queens), col, queens):
-        queens.append((len(queens), col))
-        solve_n_queens(n, queens)
-        queens.pop()
+    for col in range(n):
+        if is_safe(len(queens), col, queens):
+            queens.append((len(queens), col))
+            solve_n_queens(n, queens)
+            queens.pop()
 
 
 def main():
     """
-    The Main Function
-    """
+      The Main Function
+      """
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
